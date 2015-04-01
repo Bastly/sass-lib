@@ -1,0 +1,28 @@
+{
+  "name": "sass-lib",
+  "description": "Open source library for SASS",
+  "version": "0.1.0",
+  "main": "stylesheets/_sass-lib.scss",
+  "license": "AGPL",
+  "ignore": [
+    "**/.*",
+    "bin",
+    "package.json",
+    "sache.json"
+  ],
+  "keywords": [
+    "sass",
+    "scss",
+    "library",
+    "css",
+    "mixins"
+  ],
+  "authors": [
+    "bastly (http://bastly.com)"
+  ],
+  "homepage": "https://github.com/bastly/sass-lib",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bastly/sass-lib.git"
+  }
+}
