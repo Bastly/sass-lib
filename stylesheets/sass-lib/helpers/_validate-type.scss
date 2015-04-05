@@ -1,0 +1,43 @@
+@function _default-validation($value, $type, $scope, $parameter) {
+    $value-type: type-of($value);
+
+    @if $value-type != $type {
+        @error "argument #{$parameter} in `#{$scope}()` must be of type #{$type} but receives #{$value} (type #{$value-type}) instead";
+    }
+
+    @return null;
+}
+
+
+@function _validate(
+    $value,
+    $type,
+    $scope,
+    $parameter
+) {
+    @return _default-validation($value, $type, $scope, $parameter);
+}
+
+@function validate-type(
+    $value-type-list,
+    $scope: validate-type
+) {
+    $error: null;
+
+    @if type-of(nth($value-type-list, 2)) != list {
+        $value: nth($value-type-list, 1);
+        $type: nth($value-type-list, 2);
+        $parameter: nth($value-type-list, 3);
+
+        $error: _validate($value, $type, $scope, $parameter);
+    } @else {
+        @each $item in $value-type-list {
+            $value: nth($item, 1);
+            $type: nth($item, 2);
+            $parameter: nth($item, 3);
+            $error: _validate($value, $type, $scope, $parameter);
+        }
+    }
+
+    @return $error;
+}
