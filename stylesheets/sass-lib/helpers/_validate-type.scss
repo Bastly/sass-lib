@@ -8,6 +8,19 @@
     @return null;
 }
 
+@function _optional-validation($value, $type, $scope, $parameter) {
+    $value-type: type-of($value);
+    $real-type: str-slice($type, 10);
+
+    @if $value-type == "null" {
+        @return null;
+    } @else {
+        @return _default-validation($value, $real-type, $scope, $parameter);
+    }
+
+    @return null;
+}
+
 
 @function _validate(
     $value,
@@ -15,7 +28,12 @@
     $scope,
     $parameter
 ) {
-    @return _default-validation($value, $type, $scope, $parameter);
+
+    @if str-index($type, "optional") != null {
+        @return _optional-validation($value, $type, $scope, $parameter);
+    } @else {
+        @return _default-validation($value, $type, $scope, $parameter);
+    }
 }
 
 @function validate-type(
