@@ -1,3 +1,5 @@
+$_unit-types: "px" "cm" "mm" "%" "ch" "pica" "in" "em" "rem" "pt" "pc" "ex" "vw" "vh" "vmin" "vmax";
+
 @function _default-validation($value, $type, $scope, $parameter) {
     $value-type: type-of($value);
 
@@ -21,6 +23,32 @@
     @return null;
 }
 
+@function _number-validation($value, $type, $scope, $parameter) {
+    $value-type: type-of($value);
+
+    @if $value-type == "number" {
+
+        @if index($_unit-types, $type) != null {
+            @if unit($value) != $type {
+                @error "number is not of unit type required"
+            }
+        } @else if $type == "number-unitless" {
+            @if not unitless($value) {
+                @error "number is not unitless";
+            }
+        } @else if $type == "number-unit" {
+            @if unitless($value) {
+                @error "number doesn't come with unit"
+            }
+        }
+
+    } @else {
+        @error "argument #{$parameter} in `#{$scope}()` must be of type #{$type} but receives #{$value} (#{$value-type}) instead"
+    }
+
+    @return null;
+}
+
 
 @function _validate(
     $value,
@@ -31,8 +59,12 @@
 
     @if str-index($type, "optional") != null {
         @return _optional-validation($value, $type, $scope, $parameter);
-    } @else {
+    } @else if str-index($type, "number") != null or index($_unit-types, $type) != null {
+        @return _number-validation($value, $type, $scope, $parameter);
+    } @else if index("bool" "color" "list" "map" "null" "string", $type){
         @return _default-validation($value, $type, $scope, $parameter);
+    } @else {
+        @error "Declared type `#{$type}` in `#{$scope}()` is not a valid type";
     }
 }
 
