@@ -25,5 +25,8 @@
   "bugs": {
     "url": "https://github.com/bastly/sass-lib/issues"
   },
-  "homepage": "https://github.com/bastly/sass-lib"
+  "homepage": "https://github.com/bastly/sass-lib",
+  "devDependencies": {
+    "mocha": "^2.2.1"
+  }
 }
