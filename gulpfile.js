@@ -26,9 +26,9 @@ gulp.task('scss-lint', function() {
 });
 
 gulp.task('test', function () {
-    return gulp.src(paths.test)
+    return gulp.src(paths.test, {read: false})
         .pipe($.plumber(plumberOpts))
-        .pipe($.mocha());
+        .pipe($.mocha({reporter: 'nyan'}));
 });
 
 gulp.task('lint', ['scss-lint', 'js-lint']);
