@@ -32,7 +32,7 @@ gulp.task('test', function() {
 
 gulp.task('lint', ['scss-lint', 'js-lint']);
 
-gulp.task('watch', 'test', function() {
+gulp.task('watch', ['test'], function() {
     gulp.watch(paths.js, 'js-lint');
     gulp.watch(paths.scss, 'scss-lint');
     gulp.watch(paths.test, 'test');
