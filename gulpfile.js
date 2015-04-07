@@ -40,8 +40,4 @@ gulp.task('watch', ['test'], function () {
     gulp.watch(paths.test, ['test']);
 });
 
-gulp.task('watch-scss', function () {
-    gulp.watch(paths.scss, ['scss-lint']);
-});
-
 gulp.task('default', ['scss-lint', 'js-lint', 'test']);
