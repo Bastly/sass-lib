@@ -1,11 +1,11 @@
 // var sass = require('node-sass');
-var expect = require('chai').expect;
+var should = require('should');
 // var includePaths = '../stylesheets/lib-sass';
 
 describe('validate type function', function() {
     it('should return an error message when (1px "string" "") is passed', function() {
         var foo = true;
-        expect(foo).to.equal(true);
+        foo.should.be.exactly(true);
     });
 });
 
